@@ -21,7 +21,7 @@ include_directories(
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 add_executable(example # name of the executable on Windows will be example.exe 
-    main.cc )
+    gui.cc )
 
 target_link_libraries(example 
     ${GTKMM_LIBRARIES} ${OpenCV_LIBS} )
