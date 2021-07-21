@@ -12,3 +12,4 @@ image.pdf
 image.png
 Makefile
 simple
+.cache
