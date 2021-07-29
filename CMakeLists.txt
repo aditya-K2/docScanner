@@ -6,10 +6,6 @@ find_package( OpenCV REQUIRED )
 
 pkg_check_modules(GTKMM gtkmm-4.0)
 
-# set (PODOFO_INCLUDE_DIRS /home/aditya/podofo/include/)
-# set (PODOFO_LIB_DIRS /home/aditya/podofo/lib/)
-# set (PODOFO_LIBS /home/aditya/podofo/lib/libpodofo.a)
-
 link_directories(
     ${GTKMM_LIBRARY_DIRS}  )
 
