@@ -1,4 +1,4 @@
-#include"gtKDoc.h"
+#include"gtkDoc.h"
 
 int main(int argc, char *argv[]){
 	auto app = Gtk::Application::create("Doc Scanner");
