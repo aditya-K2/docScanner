@@ -31,3 +31,6 @@ w.cpp
 what.cpp
 .cache
 .vim
+*.jpeg
+int.cpp
+image
