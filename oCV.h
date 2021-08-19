@@ -49,8 +49,8 @@ void convertToPDF(std::vector<std::string>inputFiles) {
 
 		std::string outFileName = currentDateTime() + ".pdf";
 		painter.FinishPage();
-		fprintf(stdout,"Writing to file %s \n",outFileName.c_str()); 
-		document.Write(outFileName.c_str()); //Writing the file 
+		fprintf(stdout,"Writing to file %s \n",outFileName.c_str());
+		document.Write(outFileName.c_str()); //Writing the file
 		cout<<"Done";
 }
 
@@ -75,7 +75,7 @@ string convertIntToString(int n){
 		n = n/10;
 	}
 	string result1 = "";
-	for(int i=result.length();i>=0;i--){ result1+=result[i]; } 
+	for(int i=result.length();i>=0;i--){ result1+=result[i]; }
 	return result1;
 }
 
@@ -86,7 +86,7 @@ float convertToFloat(Glib::ustring a){
 	for(int i=0;i<a.length();i++){
 		if(int(char(a[i])) <=57 && int(char(a[i])) >= 48){
 			b*=10;
-			b+= (int(char(a[i])) - 48); 
+			b+= (int(char(a[i])) - 48);
 		}
 	}
 	return float(b);
@@ -116,7 +116,7 @@ string scanImage(string path, float h, float w){
 	Mat img = imgorig.clone();
 	Mat warpedImage;
  	while(1){
-		namedWindow("My window", 1); 
+		namedWindow("My window", 1);
 		setMouseCallback("My window", drawCircle, &img); // pass address of img here
 		imshow("My window", img);
 		waitKey(0);
@@ -139,7 +139,7 @@ string scanImage(string path, float h, float w){
 }
 
 string scanImageToWebcam(float h, float w){
-	cv::VideoCapture cap(1);
+	cv::VideoCapture cap(-1);
 	cv::Mat img1;
 	Point2f pointArray[4];
 	Point2f destinationPoints[4] = {{0.0f, 0.0f}, {w, 0.0f} , {0.0f, h}, {w,h}};
@@ -149,15 +149,15 @@ string scanImageToWebcam(float h, float w){
 		cv::imshow("vidl", img1);
 		char key = (char) cv::waitKey(1);
 		imgorig = img1;
-		if(key == 32){ 
+		if(key == 32){
 			Mat img = imgorig.clone();
-			namedWindow("My window", 1); 
+			namedWindow("My window", 1);
 			setMouseCallback("My window", drawCircle, &img); // pass address of img here
 			imshow("My window", img);
 			waitKey(0);
 			if(pix.size()<=3) continue;
 			break;
-		} 
+		}
 	}
 	convertPoints(4, pix, pointArray);
 	Mat transformationMatrix = getPerspectiveTransform(pointArray, destinationPoints);

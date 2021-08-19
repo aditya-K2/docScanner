@@ -6,6 +6,9 @@ find_package( OpenCV REQUIRED )
 
 pkg_check_modules(GTKMM gtkmm-4.0)
 
+set( PODOFO_INCLUDE /usr/include/podofo/)
+set( PODOFO_LIBRARY /usr/lib/libpodofo.so)
+
 link_directories(
     ${GTKMM_LIBRARY_DIRS}  )
 
@@ -13,16 +16,15 @@ include_directories(
     ${GTKMM_INCLUDE_DIRS}  )
 
 include_directories(
-    "/usr/include/podofo/"  )
+    ${PODOFO_INCLUDE})
 
-include_directories( 
+include_directories(
 	${GTKMM_LIBRARIES} )
 
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-add_executable(example 
-    # what.cpp )
+add_executable(example
 	gui.cc)
 
-target_link_libraries(example 
-	${GTKMM_LIBRARIES} ${OpenCV_LIBS} /usr/lib/libpodofo.so)
+target_link_libraries(example
+	${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${PODOFO_LIBRARY})

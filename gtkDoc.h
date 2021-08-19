@@ -97,21 +97,21 @@ void MainWindow::clearData(){
 void MainWindow::onFileDialogResponse(int responseId, Gtk::FileChooserDialog* dialog){
 	switch(responseId){
 		case Gtk::ResponseType::OK:{ 
-									   auto fileName = dialog->get_file()->get_path();
-									   string path = scanImage(fileName, convertToFloat(heightEntry.get_text()), convertToFloat(widthEntry.get_text()));
-									   auto aer = new Gtk::Image(path);
-									   aer->set_size_request(300, 300);
-									   aer->set_margin(10);
-									   imageBox.append(*aer);
-									   imageWidgets.push_back(aer);
-									   break;
+		   auto fileName = dialog->get_file()->get_path();
+		   string path = scanImage(fileName, convertToFloat(heightEntry.get_text()), convertToFloat(widthEntry.get_text()));
+		   auto aer = new Gtk::Image(path);
+		   aer->set_size_request(300, 300);
+		   aer->set_margin(10);
+		   imageBox.append(*aer);
+		   imageWidgets.push_back(aer);
+		   break;
 	}
 		case Gtk::ResponseType::CANCEL:{
-									   break;
+		   break;
 	}
-									   default:{
-									   std::cout<<"Unexpected Button Clicked. "<<std::endl;
-									   break;
+	   default:{
+		   std::cout<<"Unexpected Button Clicked. "<<std::endl;
+		   break;
 	}
 }
 	delete dialog;
