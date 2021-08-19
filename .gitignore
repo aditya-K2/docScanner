@@ -34,3 +34,5 @@ what.cpp
 *.jpeg
 int.cpp
 image
+a.out
+compile_commands.json

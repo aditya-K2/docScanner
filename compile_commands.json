@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/H/code/gui",
-  "command": "/usr/bin/c++  -I/usr/include/gtkmm-4.0 -I/usr/lib/gtkmm-4.0/include -I/usr/include/giomm-2.68 -I/usr/lib/giomm-2.68/include -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/glibmm-2.68 -I/usr/lib/glibmm-2.68/include -I/usr/include/sigc++-3.0 -I/usr/lib/sigc++-3.0/include -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/lzo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/graphene-1.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairomm-1.16 -I/usr/lib/cairomm-1.16/include -I/usr/include/pangomm-2.48 -I/usr/lib/pangomm-2.48/include -I/usr/include/gtk-4.0/unix-print -I/usr/include/podofo -I/H/code/gui/gtkmm-4.0 -I/H/code/gui/pangomm-2.48 -I/H/code/gui/giomm-2.68 -I/H/code/gui/glibmm-2.68 -I/H/code/gui/cairomm-1.16 -I/H/code/gui/sigc-3.0 -I/H/code/gui/gtk-4 -I/H/code/gui/pangocairo-1.0 -I/H/code/gui/pango-1.0 -I/H/code/gui/harfbuzz -I/H/code/gui/gdk_pixbuf-2.0 -I/H/code/gui/cairo-gobject -I/H/code/gui/cairo -I/H/code/gui/vulkan -I/H/code/gui/graphene-1.0 -I/H/code/gui/gio-2.0 -I/H/code/gui/gobject-2.0 -I/H/code/gui/glib-2.0 -isystem /usr/include/opencv4  -o CMakeFiles/example.dir/gui.cc.o -c /H/code/gui/gui.cc",
-  "file": "/H/code/gui/gui.cc"
-}
-]
