@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(example)
+project(scandoc)
 
 find_package(PkgConfig)
 find_package( OpenCV REQUIRED )
@@ -23,8 +23,8 @@ include_directories(
 
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-add_executable(example
+add_executable(scandoc
 	gui.cc)
 
-target_link_libraries(example
+target_link_libraries(scandoc
 	${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${PODOFO_LIBRARY})
