@@ -24,7 +24,7 @@ include_directories(
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 add_executable(scandoc
-	gui.cc)
+	main.cc gtk_scandoc.cc ocv_scandoc.cc)
 
 target_link_libraries(scandoc
 	${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${PODOFO_LIBRARY})
