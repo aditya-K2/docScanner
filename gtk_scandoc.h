@@ -9,15 +9,15 @@ public:
   virtual ~MainWindow();
 
 protected:
-  void onFileSelected();
-  void onFileDialogResponse(int responseId, Gtk::FileChooserDialog *dialog);
-  void startWebcam();
-  void savePDF();
-  void clearData();
-  Gtk::Box mainBox, buttonBox, entryBox, imageBox, utilityBox;
-  Gtk::Button fileButton, fileButton1, clearButton, saveButton;
-  Gtk::Entry heightEntry, widthEntry;
+  void on_file_selected();
+  void on_file_dialog_response(int responseId, Gtk::FileChooserDialog *dialog);
+  void start_webcam();
+  void save_pdf();
+  void clear_data();
+  Gtk::Box main_box, button_box, entry_box, image_box, utility_box;
+  Gtk::Button file_button, file_button1, clear_button, save_button;
+  Gtk::Entry height_entry, width_entry;
   Gtk::Separator s, se;
-  Gtk::ScrolledWindow imagePreview;
-  Gtk::Label imageLabel;
+  Gtk::ScrolledWindow image_preview;
+  Gtk::Label image_label;
 };

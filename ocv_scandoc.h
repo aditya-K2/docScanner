@@ -13,11 +13,11 @@ struct Pixels {
   Pixels(int x, int y);
 };
 
-const std::string currentDateTime();
-void convertToPDF(std::vector<std::string> inputFiles);
-std::string convertIntToString(int n);
-float convertToFloat(Glib::ustring a);
-void drawCircle(int event, int x, int y, int flags, void *param);
-void convertPoints(int n, std::vector<Pixels> pix, cv::Point2f pointArray[]);
-std::string scanImage(std::string path, float h, float w);
-std::string scanImageToWebcam(float h, float w);
+const std::string current_date_time();
+void convert_to_pdf(std::vector<std::string> inputFiles);
+std::string int_to_str(int n);
+float str_to_float(Glib::ustring a);
+void draw_circle(int event, int x, int y, int flags, void *param);
+void convert_points(int n, std::vector<Pixels> pix, cv::Point2f pointArray[]);
+std::string scan_image(std::string path, float h, float w);
+std::string scan_image_webcam(float h, float w);

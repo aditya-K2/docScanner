@@ -1,6 +1,6 @@
 #include "ocv_scandoc.h"
 
-std::vector<std::string> imagePaths;
+std::vector<std::string> image_paths;
 std::vector<Pixels> pix;
 
 Pixels::Pixels(int x, int y) {
@@ -8,7 +8,7 @@ Pixels::Pixels(int x, int y) {
   this->y = y;
 }
 
-const std::string currentDateTime() {
+const std::string current_date_time() {
   time_t now = time(0);
   struct tm tstruct;
   char buf[80];
@@ -17,7 +17,7 @@ const std::string currentDateTime() {
   return buf;
 }
 
-std::string scanImageToWebcam(float h, float w) {
+std::string scan_image_webcam(float h, float w) {
   cv::VideoCapture cap(-1);
   cv::Mat img1;
   cv::Point2f pointArray[4];
@@ -32,7 +32,7 @@ std::string scanImageToWebcam(float h, float w) {
     if (key == 32) {
       cv::Mat img = imgorig.clone();
       cv::namedWindow("My window", 1);
-      cv::setMouseCallback("My window", drawCircle,
+      cv::setMouseCallback("My window", draw_circle,
                            &img); // pass address of img here
       cv::imshow("My window", img);
       cv::waitKey(0);
@@ -41,24 +41,24 @@ std::string scanImageToWebcam(float h, float w) {
       break;
     }
   }
-  convertPoints(4, pix, pointArray);
+  convert_points(4, pix, pointArray);
   cv::Mat transformationMatrix =
       getPerspectiveTransform(pointArray, destinationPoints);
   cv::warpPerspective(imgorig, warpedImage, transformationMatrix,
                       cv::Point(w, h));
   cv::imshow("My Window", warpedImage);
-  std::string pathName = currentDateTime() + ".png";
+  std::string pathName = current_date_time() + ".png";
   std::string TpathName = "thumbnails/T" + pathName;
   cv::Mat resizeImage;
   cv::resize(warpedImage, resizeImage, cv::Size(600, 600));
   cv::imwrite(pathName, warpedImage);
   cv::imwrite(TpathName, resizeImage);
-  imagePaths.push_back(pathName);
+  image_paths.push_back(pathName);
   pix.clear();
   return TpathName;
 }
 
-void convertToPDF(std::vector<std::string> inputFiles) {
+void convert_to_pdf(std::vector<std::string> inputFiles) {
   PoDoFo::PdfMemDocument document;
   PoDoFo::PdfPainter painter;
   PoDoFo::PdfPage *page;
@@ -86,13 +86,13 @@ void convertToPDF(std::vector<std::string> inputFiles) {
     }
   }
 
-  std::string outFileName = currentDateTime() + ".pdf";
+  std::string outFileName = current_date_time() + ".pdf";
   painter.FinishPage();
   fprintf(stdout, "Writing to file %s \n", outFileName.c_str());
   document.Write(outFileName.c_str()); // Writing the file
 }
 
-std::string convertIntToString(int n) {
+std::string int_to_str(int n) {
   std::string a[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   std::string result = "";
   while (n) {
@@ -106,7 +106,7 @@ std::string convertIntToString(int n) {
   return result1;
 }
 
-float convertToFloat(Glib::ustring a) {
+float str_to_float(Glib::ustring a) {
   int b = 0;
   for (int i = 0; i < a.length(); i++) {
     if (int(char(a[i])) <= 57 && int(char(a[i])) >= 48) {
@@ -117,7 +117,7 @@ float convertToFloat(Glib::ustring a) {
   return float(b);
 }
 
-void drawCircle(int event, int x, int y, int flags, void *param) {
+void draw_circle(int event, int x, int y, int flags, void *param) {
   if (event == cv::EVENT_LBUTTONDOWN) {
     if (pix.size() <= 3) {
       cv::Mat &img = *((cv::Mat *)(param)); // 1st cast it back, then deref
@@ -128,13 +128,13 @@ void drawCircle(int event, int x, int y, int flags, void *param) {
   }
 }
 
-void convertPoints(int n, std::vector<Pixels> pix, cv::Point2f pointArray[]) {
+void convert_points(int n, std::vector<Pixels> pix, cv::Point2f pointArray[]) {
   for (int i = 0; i < n; i++) {
     pointArray[i] = {float(pix[i].x), float(pix[i].y)};
   }
 }
 
-std::string scanImage(std::string path, float h, float w) {
+std::string scan_image(std::string path, float h, float w) {
   cv::Point2f pointArray[4];
   cv::Point2f destinationPoints[4] = {
       {0.0f, 0.0f}, {w, 0.0f}, {0.0f, h}, {w, h}};
@@ -143,26 +143,27 @@ std::string scanImage(std::string path, float h, float w) {
   cv::Mat warpedImage;
   while (1) {
     cv::namedWindow("My window", 1);
-    setMouseCallback("My window", drawCircle, &img); // pass address of img here
+    setMouseCallback("My window", draw_circle,
+                     &img); // pass address of img here
     cv::imshow("My window", img);
     cv::waitKey(0);
     if (pix.size() <= 3)
       continue;
     break;
   }
-  convertPoints(4, pix, pointArray);
+  convert_points(4, pix, pointArray);
   cv::Mat transformationMatrix =
       getPerspectiveTransform(pointArray, destinationPoints);
   cv::warpPerspective(imgorig, warpedImage, transformationMatrix,
                       cv::Point(w, h));
   cv::imshow("My Window", warpedImage);
-  std::string pathName = currentDateTime() + ".png";
+  std::string pathName = current_date_time() + ".png";
   std::string TpathName = "thumbnails/T" + pathName;
   cv::Mat resizeImage;
   cv::resize(warpedImage, resizeImage, cv::Size(600, 600));
   cv::imwrite(pathName, warpedImage);
   imwrite(TpathName, resizeImage);
-  imagePaths.push_back(pathName);
+  image_paths.push_back(pathName);
   pix.clear();
   return TpathName;
 }

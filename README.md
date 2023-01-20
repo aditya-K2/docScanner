@@ -26,3 +26,11 @@ $ cd scandoc
 $ cmake .
 $ make
 ```
+
+#### Note:
+
+You can generate `compile_commands.json` for clangd or other clang-tools
+
+```bash
+$ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
+```

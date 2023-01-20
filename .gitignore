@@ -13,3 +13,4 @@ thumbnails
 a.out
 compile_commands.json
 scandoc
+.cache
