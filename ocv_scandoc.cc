@@ -105,8 +105,8 @@ void convert_to_pdf(std::vector<std::string> inputFiles) {
 
   std::string outFileName = current_date_time() + ".pdf";
   painter.FinishPage();
-  fprintf(stdout, "Writing to file %s \n", outFileName.c_str());
   document.Write(outFileName.c_str()); // Writing the file
+  fprintf(stdout, "Writtern to file %s \n", outFileName.c_str());
 }
 
 std::string int_to_str(int n) {
