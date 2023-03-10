@@ -6,6 +6,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <podofo/podofo.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 struct Pixels {
   int x;

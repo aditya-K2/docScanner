@@ -8,6 +8,19 @@ Pixels::Pixels(int x, int y) {
   this->y = y;
 }
 
+const std::string TEMP_DIR = "/tmp";
+const std::string THUMBNAIL_DIR = TEMP_DIR + "/thumbnails";
+const auto PERM = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH;
+
+bool directory_check(std::string path) {
+  const char *dir = path.c_str();
+  struct stat sb;
+  if (stat(dir, &sb) != 0)
+    return mkdir(dir, PERM) != -1;
+  else
+    return true;
+}
+
 const std::string current_date_time() {
   time_t now = time(0);
   struct tm tstruct;
@@ -18,6 +31,9 @@ const std::string current_date_time() {
 }
 
 std::string scan_image_webcam(float h, float w) {
+  if (!directory_check(THUMBNAIL_DIR)) {
+    return "";
+  }
   cv::VideoCapture cap(-1);
   cv::Mat img1;
   cv::Point2f pointArray[4];
@@ -47,8 +63,9 @@ std::string scan_image_webcam(float h, float w) {
   cv::warpPerspective(imgorig, warpedImage, transformationMatrix,
                       cv::Point(w, h));
   cv::imshow("My Window", warpedImage);
-  std::string pathName = current_date_time() + ".png";
-  std::string TpathName = "thumbnails/T" + pathName;
+  std::string baseName = current_date_time() + ".png";
+  std::string pathName = THUMBNAIL_DIR + "/" + baseName;
+  std::string TpathName = THUMBNAIL_DIR + "/T" + baseName;
   cv::Mat resizeImage;
   cv::resize(warpedImage, resizeImage, cv::Size(600, 600));
   cv::imwrite(pathName, warpedImage);
@@ -135,6 +152,9 @@ void convert_points(int n, std::vector<Pixels> pix, cv::Point2f pointArray[]) {
 }
 
 std::string scan_image(std::string path, float h, float w) {
+  if (!directory_check(THUMBNAIL_DIR)) {
+    return "";
+  }
   cv::Point2f pointArray[4];
   cv::Point2f destinationPoints[4] = {
       {0.0f, 0.0f}, {w, 0.0f}, {0.0f, h}, {w, h}};
@@ -157,8 +177,9 @@ std::string scan_image(std::string path, float h, float w) {
   cv::warpPerspective(imgorig, warpedImage, transformationMatrix,
                       cv::Point(w, h));
   cv::imshow("My Window", warpedImage);
-  std::string pathName = current_date_time() + ".png";
-  std::string TpathName = "thumbnails/T" + pathName;
+  std::string baseName = current_date_time() + ".png";
+  std::string pathName = THUMBNAIL_DIR + "/" + baseName;
+  std::string TpathName = THUMBNAIL_DIR + "/T" + baseName;
   cv::Mat resizeImage;
   cv::resize(warpedImage, resizeImage, cv::Size(600, 600));
   cv::imwrite(pathName, warpedImage);
@@ -167,4 +188,3 @@ std::string scan_image(std::string path, float h, float w) {
   pix.clear();
   return TpathName;
 }
-

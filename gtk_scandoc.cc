@@ -84,6 +84,9 @@ void MainWindow::on_file_selected() {
 void MainWindow::start_webcam() {
   std::string path = scan_image_webcam(str_to_float(height_entry.get_text()),
                                        str_to_float(width_entry.get_text()));
+  if (path == "") {
+    exit(-1);
+  }
   auto aer = new Gtk::Image(path);
   aer->set_size_request(300, 300);
   aer->set_margin(10);
@@ -119,6 +122,9 @@ void MainWindow::on_file_dialog_response(int responseId,
     std::string path =
         scan_image(fileName, str_to_float(height_entry.get_text()),
                    str_to_float(width_entry.get_text()));
+    if (path == "") {
+      exit(-1);
+    }
     auto aer = new Gtk::Image(path);
     aer->set_size_request(300, 300);
     aer->set_margin(10);
