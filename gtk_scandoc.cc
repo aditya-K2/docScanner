@@ -93,7 +93,15 @@ void MainWindow::start_webcam() {
 
 MainWindow::~MainWindow() {}
 
-void MainWindow::save_pdf() { convert_to_pdf(image_paths); }
+void MainWindow::save_pdf() {
+  convert_to_pdf(image_paths);
+  m_pDialog.reset(new Gtk::MessageDialog(*this, "PDF has been Saved!"));
+  m_pDialog->set_modal(true);
+  m_pDialog->set_hide_on_close(true);
+  m_pDialog->signal_response().connect(
+      sigc::hide(sigc::mem_fun(*m_pDialog, &Gtk::Widget::hide)));
+  m_pDialog->show();
+}
 
 void MainWindow::clear_data() {
   for (int i = 0; i < image_widgets.size(); i++) {
@@ -128,4 +136,3 @@ void MainWindow::on_file_dialog_response(int responseId,
   }
   delete dialog;
 }
-

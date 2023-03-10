@@ -20,4 +20,5 @@ protected:
   Gtk::Separator s, se;
   Gtk::ScrolledWindow image_preview;
   Gtk::Label image_label;
+  std::unique_ptr<Gtk::MessageDialog> m_pDialog;
 };
