@@ -1,6 +1,6 @@
 # scandoc
 A GTK Application to scan Documents and Compile PDFs
-![Screenshot](./image)
+![Screenshot](./extras/image)
 
 ## Download the prerequisites.
 
