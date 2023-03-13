@@ -75,11 +75,12 @@ std::string scan_image_webcam(float h, float w) {
   return TpathName;
 }
 
-void convert_to_pdf(std::vector<std::string> inputFiles) {
+std::string convert_to_pdf(std::string folder_path,
+                           std::vector<std::string> input_files) {
   PoDoFo::PdfMemDocument document;
   PoDoFo::PdfPainter painter;
   PoDoFo::PdfPage *page;
-  for (auto &imageName : inputFiles) {
+  for (auto &imageName : input_files) {
     PoDoFo::PdfImage image(&document);
     /* Loading image */
     image.LoadFromFile(imageName.c_str());
@@ -103,10 +104,10 @@ void convert_to_pdf(std::vector<std::string> inputFiles) {
     }
   }
 
-  std::string outFileName = current_date_time() + ".pdf";
+  std::string outFileName = folder_path + "/" + current_date_time() + ".pdf";
   painter.FinishPage();
   document.Write(outFileName.c_str()); // Writing the file
-  fprintf(stdout, "Writtern to file %s \n", outFileName.c_str());
+  return outFileName;
 }
 
 std::string int_to_str(int n) {

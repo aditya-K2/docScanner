@@ -16,7 +16,7 @@ struct Pixels {
 };
 
 const std::string current_date_time();
-void convert_to_pdf(std::vector<std::string> inputFiles);
+std::string convert_to_pdf(std::string folder_path, std::vector<std::string> input_files);
 std::string int_to_str(int n);
 float str_to_float(Glib::ustring a);
 void draw_circle(int event, int x, int y, int flags, void *param);

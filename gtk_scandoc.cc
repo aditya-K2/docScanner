@@ -14,14 +14,15 @@ MainWindow::MainWindow()
       save_button("Save") {
   set_title("Select An Image To Scan");
   set_child(main_box);
-  set_default_size(640, 480);
+  set_default_size(1024, 768);
 
-  height_entry.set_text("Enter Height For Output Image");
+  height_entry.set_placeholder_text("Height For Output Image");
   height_entry.set_margin(30);
-  height_entry.select_region(0, height_entry.get_text_length());
-  width_entry.set_text("Enter Width For Output Image");
+  width_entry.set_placeholder_text("Width For Output Image");
   width_entry.set_margin(30);
-  width_entry.select_region(0, width_entry.get_text_length());
+  folder_entry.set_placeholder_text(" Output Directory");
+  folder_entry.set_margin(30);
+  folder_entry.set_icon_from_icon_name("folder");
 
   image_label.set_text("Current Images in Buffers");
   image_label.set_margin(10);
@@ -34,6 +35,7 @@ MainWindow::MainWindow()
   main_box.append(utility_box);
   entry_box.append(height_entry);
   entry_box.append(width_entry);
+  entry_box.append(folder_entry);
   button_box.append(file_button);
   button_box.append(file_button1);
   utility_box.append(clear_button);
@@ -58,6 +60,43 @@ MainWindow::MainWindow()
       sigc::mem_fun(*this, &MainWindow::save_pdf));
   clear_button.signal_clicked().connect(
       sigc::mem_fun(*this, &MainWindow::clear_data));
+  folder_entry.signal_icon_press().connect(
+      sigc::mem_fun(*this, &MainWindow::on_icon_pressed));
+}
+
+void MainWindow::on_icon_pressed(Gtk::Entry::IconPosition icon_pos) {
+  auto dialog = new Gtk::FileChooserDialog(
+      "Please choose a folder", Gtk::FileChooser::Action::SELECT_FOLDER);
+  dialog->set_transient_for(*this);
+  dialog->set_modal(true);
+  dialog->signal_response().connect(sigc::bind(
+      sigc::mem_fun(*this, &MainWindow::on_folder_dialog_response), dialog));
+
+  // Add response buttons to the dialog:
+  dialog->add_button("Cancel", Gtk::ResponseType::CANCEL);
+  dialog->add_button("Select", Gtk::ResponseType::OK);
+
+  // Show the dialog and wait for a user response:
+  dialog->show();
+}
+
+void MainWindow::on_folder_dialog_response(int response_id,
+                                           Gtk::FileChooserDialog *dialog) {
+  switch (response_id) {
+  case Gtk::ResponseType::OK: {
+    folder_entry.set_text(dialog->get_file()->get_path());
+    break;
+  }
+  case Gtk::ResponseType::CANCEL: {
+    std::cout << "Cancel clicked." << std::endl;
+    break;
+  }
+  default: {
+    std::cout << "Unexpected button clicked." << std::endl;
+    break;
+  }
+  }
+  delete dialog;
 }
 
 void MainWindow::on_file_selected() {
@@ -97,8 +136,10 @@ void MainWindow::start_webcam() {
 MainWindow::~MainWindow() {}
 
 void MainWindow::save_pdf() {
-  convert_to_pdf(image_paths);
+  std::string folder_path = folder_entry.get_text();
+  std::string pdf_path = convert_to_pdf(folder_path, image_paths);
   m_pDialog.reset(new Gtk::MessageDialog(*this, "PDF has been Saved!"));
+  m_pDialog->set_secondary_text(pdf_path);
   m_pDialog->set_modal(true);
   m_pDialog->set_hide_on_close(true);
   m_pDialog->signal_response().connect(
